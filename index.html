@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #77d1f7, #a8e063);
+            background: url("YOUR_IMAGE_URL_HERE") no-repeat center center fixed;
+            background-size: cover;
             text-align: center;
             padding: 20px;
         }
@@ -32,7 +33,7 @@
         .info, .change, .earn {
             color: black;
         }
-        .whatsapp-button {
+        .whatsapp-button, .contact-button {
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
@@ -41,9 +42,19 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            cursor: pointer;
         }
-        .whatsapp-button:hover {
+        .whatsapp-button:hover, .contact-button:hover {
             background: darkgreen;
+        }
+        .countdown {
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .contact-button {
+            display: none;
         }
     </style>
 </head>
@@ -56,8 +67,35 @@
         <p class="change">If you want to change your current state of poverty, you can learn the secrets of others' success and become rich.</p>
         <p class="earn">Everyone can earn 500-3000 RS per day.</p>
         
-        <!-- WhatsApp बटन -->
-        <a href="https://wa.me/919876543210" class="whatsapp-button" target="_blank">Chat on WhatsApp</a>
+        <!-- पहला बटन जो काउंटडाउन शुरू करेगा -->
+        <button class="whatsapp-button" onclick="startCountdown()">Chat on WhatsApp</button>
+        
+        <!-- काउंटडाउन -->
+        <p class="countdown" id="countdown" style="display:none;">Redirecting in <span id="timer">30</span> seconds...</p>
+
+        <!-- असली Contact Now बटन जो WhatsApp पर भेजेगा -->
+        <a id="contactButton" class="contact-button" href="https://wa.me/919876543210" target="_blank">Contact Now</a>
     </div>
+
+    <script>
+        function startCountdown() {
+            document.querySelector(".whatsapp-button").style.display = "none";
+            document.getElementById("countdown").style.display = "block";
+            
+            let timeLeft = 30;
+            let timer = document.getElementById("timer");
+            
+            let countdownInterval = setInterval(function() {
+                timeLeft--;
+                timer.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("contactButton").style.display = "inline-block";
+                }
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
